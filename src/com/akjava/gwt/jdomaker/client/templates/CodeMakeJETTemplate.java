@@ -15,7 +15,7 @@ public class CodeMakeJETTemplate
   }
 
   public final String NL = nl == null ? ("\r\n") : nl;
-  protected final String TEXT_1 = "import javax.jdo.annotations.IdentityType;" + NL + "import javax.jdo.annotations.PersistenceCapable;" + NL + "import javax.jdo.annotations.Persistent;" + NL + "import javax.jdo.annotations.PrimaryKey;" + NL + "import javax.jdo.annotations.Version;" + NL + "import javax.jdo.annotations.VersionStrategy;" + NL + "import javax.jdo.annotations.IdGeneratorStrategy;" + NL + "" + NL + "import com.google.appengine.api.datastore.Blob;" + NL + "import com.google.appengine.api.datastore.Text;" + NL + "" + NL + "" + NL + "@PersistenceCapable(identityType = IdentityType.APPLICATION";
+  protected final String TEXT_1 = "import java.util.List;" + NL + "import javax.jdo.annotations.IdentityType;" + NL + "import javax.jdo.annotations.PersistenceCapable;" + NL + "import javax.jdo.annotations.Persistent;" + NL + "import javax.jdo.annotations.PrimaryKey;" + NL + "import javax.jdo.annotations.Version;" + NL + "import javax.jdo.annotations.VersionStrategy;" + NL + "import javax.jdo.annotations.IdGeneratorStrategy;" + NL + "" + NL + "import com.google.appengine.api.datastore.Blob;" + NL + "import com.google.appengine.api.datastore.Text;" + NL + "" + NL + "" + NL + "@PersistenceCapable(identityType = IdentityType.APPLICATION";
   protected final String TEXT_2 = ")";
   protected final String TEXT_3 = NL;
   protected final String TEXT_4 = NL + "public class ";

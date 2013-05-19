@@ -98,6 +98,7 @@ public class GWTJDOMaker implements EntryPoint {
 		JDOClass jdoc=stringToJdoClass(input.getText());
 		String text=new CodeMakeJETTemplate().generate(jdoc);
 		output.setText(text);
+		output.selectAll();
 	}
 	
 	protected JDOClass stringToJdoClass(String text){
