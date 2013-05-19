@@ -1,0 +1,36 @@
+<%@ jet package="com.akjava.gwt.jdomaker.client.templates" nlString="\"\\r\\n\"" class="CodeMakeJETTemplate" imports="java.util.List com.akjava.gwt.jdomaker.client.*"%>
+<% JDOClass jdoclass=(JDOClass)argument; %>
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+import javax.jdo.annotations.Version;
+import javax.jdo.annotations.VersionStrategy;
+import javax.jdo.annotations.IdGeneratorStrategy;
+
+import com.google.appengine.api.datastore.Blob;
+import com.google.appengine.api.datastore.Text;
+
+
+@PersistenceCapable(identityType = IdentityType.APPLICATION<%=jdoclass.createDetachableString()%>)
+<%=jdoclass.createLongRunningTransactionString()%>
+public class <%= jdoclass.getName() %> <%= jdoclass.createSerializableString() %>
+
+	@PrimaryKey
+	<%  List<JDOValue> values=jdoclass.getJdoList();
+	for(JDOValue value:values){
+	%>
+	@Persistent<%=value.createAnnotationString()%>
+	private <%=value.getType()%> <%=value.getName()%>;
+	
+	public <%=value.createReturnType()%> get<%=value.getUpperStartName()%>() {
+		<%=value.createGetMethod()%>
+	}
+
+	public void set<%=value.getUpperStartName()%>(<%=value.createArgType()%> <%=value.getName()%>) {
+		<%=value.createSetMethod()%>
+	}
+	<%
+	}
+	%>	
+}

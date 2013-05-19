@@ -1,0 +1,3 @@
+Need Pojo converter,at least support Blob and Text
+
+need RPC Builder too

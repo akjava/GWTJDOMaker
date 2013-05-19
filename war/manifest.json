@@ -1,0 +1,16 @@
+{
+  "name": "JDOMaker",
+  "description": "create jdo source-code",
+  "version": "1",
+  "app": {
+    "launch": {
+      "local_path": "GWTJDOMaker.html"
+    }
+  },
+  "icons": {
+    "128": "icon.png"
+  },
+  "permissions": [
+    "unlimitedStorage"
+  ]
+}
