@@ -1,0 +1,16 @@
+		if (map.get("${key}") != null) {
+			List<Boolean> values = new ArrayList<Boolean>();
+			String[] vs = map.get("${key}").split(",");
+			for (String v : vs) {
+				Boolean number = null;
+				try {
+					number = Boolean.parseBoolean(v);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				if (number != null) {
+					values.add(number);
+				}
+			}
+			entity.set${u+key}(values);
+		}

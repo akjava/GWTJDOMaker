@@ -1,0 +1,119 @@
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
+
+import com.akjava.lib.common.utils.HTMLUtils;
+import com.akjava.lib.common.utils.ValuesUtils;
+import com.google.common.base.Functions;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
+
+public class ${class}Dao {
+private PersistenceManager manager;
+public ${class}Dao(PersistenceManager manager){
+	this.manager=manager;
+}
+	public  void addData(${class} data) throws Exception{
+		
+		Transaction tx=manager.currentTransaction();
+		try{
+			tx.begin();
+			manager.makePersistent(data);
+			tx.commit();
+			}catch (Exception e) {
+				throw e;
+			}finally{
+				if(tx.isActive()){
+					tx.rollback();
+				}
+			}
+	}
+	
+	
+	public long count(){
+		Query query=manager.newQuery("select count(this) from "+${class}.class.getClass().getName());
+		Long value=(Long) query.execute();
+		if(value!=null){
+			return value;
+		}else{
+			return 0;
+		}
+		
+	}
+	
+	/*
+	 * only if id is not auto
+	 */
+	public boolean exists(Object id){
+		try{
+		${class} data=manager.getObjectById(${class}.class, id);
+		if(data!=null){
+			return true;
+		}
+		}catch (Exception e) {
+			
+		}
+		return false;
+	}
+	
+	public  void updateData(${class} data) throws Exception{
+		Transaction tx=manager.currentTransaction();
+		try{
+			tx.begin();
+			manager.makePersistent(data);
+			tx.commit();
+			}catch (Exception e) {
+				throw e;
+			}finally{
+				if(tx.isActive()){
+					tx.rollback();
+				}
+			}
+	}
+	
+	public  void removeData(${class} data) throws Exception{
+		Transaction tx=manager.currentTransaction();
+		try{
+			tx.begin();
+			manager.deletePersistent(data);
+			tx.commit();
+			}catch (Exception e) {
+				throw e;
+			}finally{
+				if(tx.isActive()){
+					tx.rollback();
+				}
+			}
+	}
+	
+	/*
+	 * get datas simply
+	 */
+public  List<${class}> getDatas(long start,long size,String key,boolean isAsce){
+	Query query =manager.newQuery(${class}.class);
+	if(key!=null){
+		String order=key;
+		if(!isAsce){
+		order+=" desc";
+		}
+		query.setOrdering(order);
+	}
+	query.setRange(start, start+size);
+	@SuppressWarnings("unchecked")
+	List<${class}> result=(List<${class}>) query.execute();
+	return result;
+	}
+
+	public  ${class} getData(Object key) throws Exception{
+		return (${class}) manager.getObjectById(${class}.class,key);
+	}
+	
+	
+}

@@ -2,10 +2,10 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/GWTLibs"/>
 	<classpathentry kind="lib" path="C:/java/lib/guava-14.0.1.jar"/>
 	<classpathentry kind="lib" path="C:/java/lib/guava-gwt-14.0.1.jar"/>
 	<classpathentry kind="lib" path="C:/java/lib/jsr305.jar"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER/GWT (2)"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/GWTLib2011"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

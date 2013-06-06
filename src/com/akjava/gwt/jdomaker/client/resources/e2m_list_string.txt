@@ -1,0 +1,5 @@
+	if (entity.get${u+key}() != null) {
+			map.put("${key}", textJoiner.join(entity.get${u+key}()));
+		} else {
+			map.put("${key}", "");
+		}

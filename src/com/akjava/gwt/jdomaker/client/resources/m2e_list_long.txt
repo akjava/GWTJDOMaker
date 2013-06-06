@@ -1,0 +1,16 @@
+		if (map.get("${key}") != null) {
+			List<Long> values = new ArrayList<Long>();
+			String[] vs = map.get("${key}").split(",");
+			for (String v : vs) {
+				Long number = null;
+				try {
+					number = Long.parseLong(v);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				if (number != null) {
+					values.add(number);
+				}
+			}
+			entity.set${u+key}(values);
+		}

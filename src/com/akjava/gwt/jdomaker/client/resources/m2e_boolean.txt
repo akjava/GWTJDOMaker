@@ -1,0 +1,9 @@
+	if(map.get("${key}")!=null){
+			Boolean value=null;
+			try{
+				value=Boolean.parseBoolean(map.get("${key}"));
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			entity.set${u+key}(value);
+		}

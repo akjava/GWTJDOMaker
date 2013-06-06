@@ -63,7 +63,7 @@ public String createAnnotationString(){
 	}
 }
 public boolean hasAnnotation(){
-	return annotation!=null;
+	return annotation!=null && !annotation.isEmpty();
 }
 
 private static String toUpperStartString(String str){

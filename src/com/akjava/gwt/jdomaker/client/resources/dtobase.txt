@@ -1,0 +1,35 @@
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.common.base.Ascii;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
+
+public class ${class}Dto {
+	private static Joiner numberJoiner = Joiner.on(",");
+	private static Joiner textJoiner = Joiner.on((char) Ascii.NUL);
+
+	public static Map<String, String> entityToMap(${class} entity) {
+		Map<String, String> map = new HashMap<String, String>();
+
+${e2m}
+
+		return map;
+	}
+
+	public static ${class} mapToEntity(Map<String, String> map) {
+		${class} entity = new ${class}();
+		return copyToEntity(entity, map);
+	}
+
+	public static DataEntity copyToEntity(DataEntity entity,
+			Map<String, String> map) {
+		
+${m2e}
+
+		return entity;
+	}
+}

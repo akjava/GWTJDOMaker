@@ -2,7 +2,7 @@
 <module rename-to='gwtjdomaker'>
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name='com.google.gwt.user.User'/>
-<inherits name="com.akjava.gwt.libs.Libs"/>
+
   <!-- Inherit the default GWT style sheet.  You can change       -->
   <!-- the theme of your GWT application by uncommenting          -->
   <!-- any one of the following lines.                            -->
@@ -10,9 +10,10 @@
   <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
 
-  <!-- Other module inherits                                      -->
-   <inherits name='com.google.common.base.Base'/>
-    <inherits name='com.google.common.collect.Collect'/>
+  <!-- Other module inherits-->
+                                       
+ <inherits name="com.akjava.gwt.common.Common"/>
+  
    
   <!-- Specify the app entry point class.                         -->
   <entry-point class='com.akjava.gwt.jdomaker.client.GWTJDOMaker'/>
