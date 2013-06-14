@@ -13,8 +13,6 @@ import com.akjava.lib.common.utils.TemplateUtils;
 import com.akjava.lib.common.utils.ValuesUtils;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -22,7 +20,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.text.shared.Renderer;
-import com.google.gwt.uibinder.client.UiBinderUtil.TempAttachment;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -189,6 +187,9 @@ public class GWTJDOMaker implements EntryPoint {
 			map.put("u+key", ValuesUtils.toUpperCamel(value.getName()));
 			
 			String template=e2mMap.get(value.getType());
+			if(template==null){
+				Window.alert("jdo type:"+value.getType()+" not found");
+			}
 			return TemplateUtils.createText(template, map);
 		}
 	}
