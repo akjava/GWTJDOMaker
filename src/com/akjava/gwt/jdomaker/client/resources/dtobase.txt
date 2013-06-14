@@ -25,7 +25,7 @@ ${e2m}
 		return copyToEntity(entity, map);
 	}
 
-	public static DataEntity copyToEntity(DataEntity entity,
+	public static ${class}Entity copyToEntity(${class}Entity entity,
 			Map<String, String> map) {
 		
 ${m2e}
