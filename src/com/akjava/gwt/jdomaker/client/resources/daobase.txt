@@ -38,7 +38,7 @@ public ${class}Dao(PersistenceManager manager){
 	
 	
 	public long count(){
-		Query query=manager.newQuery("select count(this) from "+${class}.class.getClass().getName());
+		Query query=manager.newQuery("select count(this) from "+${class}.class.getName());
 		Long value=(Long) query.execute();
 		if(value!=null){
 			return value;
