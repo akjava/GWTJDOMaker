@@ -9,7 +9,7 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
 public class ${class}Dto {
-	private static Joiner numberJoiner = Joiner.on(",");
+	private static Joiner numberJoiner = Joiner.on("\t");
 	private static Joiner textJoiner = Joiner.on((char) Ascii.NUL);
 
 	public static Map<String, String> entityToMap(${class} entity) {
