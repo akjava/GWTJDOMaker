@@ -1,4 +1,4 @@
-	if(map.get("${key}")!=null){
+	if(map.get("${key}")!=null && !map.get("${key}").isEmpty()){
 			Long value=null;
 			try{
 				value=Long.parseLong(map.get("${key}"));
