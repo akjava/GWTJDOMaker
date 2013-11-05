@@ -22,6 +22,15 @@ public class JDOBuilder {
 	public static class Settings{
 		private String className;
 		private boolean detachable;
+		private String packageValue;
+		
+		public String getPackageValue() {
+			return packageValue;
+		}
+		public Settings packageValue(String value){
+			this.packageValue=value;
+			return this;
+		}
 		public boolean isDetachable() {
 			return detachable;
 		}
@@ -84,17 +93,25 @@ public class JDOBuilder {
 	public List<FileNameAndText> createJdoFilesByCsv(Settings settings,String csvText){
 		List<FileNameAndText> files=new ArrayList<FileNameAndText>();
 		
+		String packageText="";
+		if(settings.getPackageValue()!=null){
+			packageText="package "+settings.getPackageValue()+";";
+		}
+		if(!packageText.isEmpty()){
+			packageText+="\n";
+		}
+		
 		JDOClass jdoc=stringToJdoClass(settings,csvText);
 		//create entity by jet.however it's too old way
 		String text=new CodeMakeJETTemplate().generate(jdoc);
-		files.add(new FileNameAndText(settings.getClassName(), text));
+		files.add(new FileNameAndText(settings.getClassName()+".java",packageText+ text));
 		
 		//create dao by simple template
 		String daobase=Bundles.INSTANCE.daobase().getText();
 		Map<String,String> values=new HashMap<String, String>();
 		values.put("class", jdoc.getName());
 		
-		files.add(new FileNameAndText(settings.getClassName()+"Dao", TemplateUtils.createText(daobase, values)));
+		files.add(new FileNameAndText(settings.getClassName()+"Dao.java", packageText+TemplateUtils.createText(daobase, values)));
 		
 		//create dto by simple temaplate & function
 		String dtobase=Bundles.INSTANCE.dtobase().getText();
@@ -104,7 +121,7 @@ public class JDOBuilder {
 		String m2e=Joiner.on("\n").join(Lists.transform(jdoc.getJdoList(), new JdoValueToM2ETextFunction()));
 		values.put("m2e", m2e);
 		
-		files.add(new FileNameAndText(settings.getClassName()+"Dto", TemplateUtils.createText(dtobase, values)));
+		files.add(new FileNameAndText(settings.getClassName()+"Dto.java", packageText+TemplateUtils.createText(dtobase, values)));
 		
 		return files;
 	}

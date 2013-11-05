@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="C:/java/lib/jsr305.jar"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER/GWT (2)"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/GWTLib2011"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/html5gwt"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
