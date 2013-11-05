@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.akjava.gwt.html5.client.file.ui.FileNameAndText;
 import com.akjava.gwt.jdomaker.client.resources.Bundles;
 import com.akjava.gwt.jdomaker.client.templates.CodeMakeJETTemplate;
 import com.akjava.lib.common.utils.TemplateUtils;
@@ -50,8 +51,7 @@ public class GWTJDOMaker implements EntryPoint {
 	private TextArea daoOutput;
 	private TextBox classNameBox;
 	private TextArea pmfOutput;
-	private Map<String,String> e2mMap;
-	private Map<String,String> m2eMap;
+
 	private TextArea dtoOutput;
 
 	
@@ -62,28 +62,6 @@ public class GWTJDOMaker implements EntryPoint {
 	public void onModuleLoad() {
 		
 		
-		
-		e2mMap = new HashMap<String, String>();
-		e2mMap.put("String", Bundles.INSTANCE.e2m_string().getText());
-		e2mMap.put("Integer", Bundles.INSTANCE.e2m_int().getText());
-		e2mMap.put("Long", Bundles.INSTANCE.e2m_long().getText());
-		e2mMap.put("Boolean", Bundles.INSTANCE.e2m_boolean().getText());
-		e2mMap.put("Text", Bundles.INSTANCE.e2m_text().getText());
-		e2mMap.put("List<String>", Bundles.INSTANCE.e2m_list_string().getText());
-		e2mMap.put("List<Integer>", Bundles.INSTANCE.e2m_list_int().getText());
-		e2mMap.put("List<Long>", Bundles.INSTANCE.e2m_list_long().getText());
-		e2mMap.put("List<Boolean>", Bundles.INSTANCE.e2m_list_boolean().getText());
-		
-		m2eMap = new HashMap<String, String>();
-		m2eMap.put("String", Bundles.INSTANCE.m2e_string().getText());
-		m2eMap.put("Integer", Bundles.INSTANCE.m2e_int().getText());
-		m2eMap.put("Long", Bundles.INSTANCE.m2e_long().getText());
-		m2eMap.put("Boolean", Bundles.INSTANCE.m2e_boolean().getText());
-		m2eMap.put("Text", Bundles.INSTANCE.m2e_text().getText());
-		m2eMap.put("List<String>", Bundles.INSTANCE.m2e_list_string().getText());
-		m2eMap.put("List<Integer>", Bundles.INSTANCE.m2e_list_int().getText());
-		m2eMap.put("List<Long>", Bundles.INSTANCE.m2e_list_long().getText());
-		m2eMap.put("List<Boolean>", Bundles.INSTANCE.m2e_list_boolean().getText());
 		
 		VerticalPanel root=new VerticalPanel();
 		
@@ -179,32 +157,7 @@ public class GWTJDOMaker implements EntryPoint {
 		RootPanel.get("container").add(root);
 	}
 	
-	public class JdoValueToE2MTextFunction implements Function<JDOValue,String>{
-		@Override
-		public String apply(JDOValue value) {
-			Map<String,String> map=new HashMap<String, String>();
-			map.put("key", value.getName());
-			map.put("u+key", ValuesUtils.toUpperCamel(value.getName()));
-			
-			String template=e2mMap.get(value.getType());
-			if(template==null){
-				Window.alert("jdo type:"+value.getType()+" not found");
-			}
-			return TemplateUtils.createText(template, map);
-		}
-	}
 	
-	public class JdoValueToM2ETextFunction implements Function<JDOValue,String>{
-		@Override
-		public String apply(JDOValue value) {
-			Map<String,String> map=new HashMap<String, String>();
-			map.put("key", value.getName());
-			map.put("u+key", ValuesUtils.toUpperCamel(value.getName()));
-			
-			String template=m2eMap.get(value.getType());
-			return TemplateUtils.createText(template, map);
-		}
-	}
 
 	private HorizontalPanel createAddForm(){
 		HorizontalPanel h=new HorizontalPanel();
@@ -248,56 +201,27 @@ public class GWTJDOMaker implements EntryPoint {
 	}
 	
 	protected void doMake() {
-		JDOClass jdoc=stringToJdoClass(classNameBox.getText(),input.getText());
-		//create entity by jet.however it's too old way
-		String text=new CodeMakeJETTemplate().generate(jdoc);
-		entityOutput.setText(text);
+		
+		JDOBuilder.Settings settings=new JDOBuilder.Settings().className(classNameBox.getText())
+				.detachable(detachableCheck.getValue())
+				.serializable(serializableCheck.getValue())
+				.longRunningTransaction(longRunningTransactionCheck.getValue());
+		
+		JDOBuilder builder=new JDOBuilder();
+		List<FileNameAndText> files=builder.createJdoFilesByCsv(settings,input.getText());
+		
+		
+		
+		entityOutput.setText(files.get(0).getText());
 		entityOutput.selectAll();
 		
-		//create dao by simple template
-		String daobase=Bundles.INSTANCE.daobase().getText();
-		Map<String,String> values=new HashMap<String, String>();
-		values.put("class", jdoc.getName());
+		daoOutput.setText(files.get(1).getText());
 		
-		daoOutput.setText(TemplateUtils.createText(daobase, values));
-		
-		//create dto by simple temaplate & function
-		String dtobase=Bundles.INSTANCE.dtobase().getText();
-		String e2m=Joiner.on("\n").join(Lists.transform(jdoc.getJdoList(), new JdoValueToE2MTextFunction()));
-		values.put("e2m", e2m);
-		
-		String m2e=Joiner.on("\n").join(Lists.transform(jdoc.getJdoList(), new JdoValueToM2ETextFunction()));
-		values.put("m2e", m2e);
-		
-		dtoOutput.setText(TemplateUtils.createText(dtobase, values));
+		dtoOutput.setText(files.get(2).getText());
 		
 	}
 	
-	protected JDOClass stringToJdoClass(String name,String text){
-		//List<String[]> datas=CSVUtils.parseCSV(text, ' ', 0);
-		List<String[]> datas=parseCsvByGuava(text);
-				
-		JDOClass jdoclass=new JDOClass();
-		jdoclass.setDetachable(detachableCheck.getValue());
-		jdoclass.setSerializable(serializableCheck.getValue());
-		jdoclass.setLongRunningTransaction(longRunningTransactionCheck.getValue());
-		
-		jdoclass.setName(name);
-		//boolean firstOne=false;
-		for(String[] data:datas){//TODO change it
-			if(data[0].isEmpty()){
-				continue;
-			}
-			JDOValue value=new JDOValue(data);
-			jdoclass.add(value);
-		}
-		return jdoclass;
-	}
-	
-	private List<String[]> parseCsvByGuava(String text){
-		 List<String> lines=ValuesUtils.toListLines(text);
-		 List<List<String>> lists=Lists.transform(lines, new SplitLineFunction(true, true));
-		 return Lists.transform(lists, new IterableToArrayFunction());
-	}
+
+
 	
 }

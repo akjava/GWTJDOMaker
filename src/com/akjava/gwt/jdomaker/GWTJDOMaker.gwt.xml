@@ -13,7 +13,7 @@
   <!-- Other module inherits-->
                                        
  <inherits name="com.akjava.gwt.common.Common"/>
-  
+   <inherits name="com.akjava.gwt.html5.Html5widget"/>
    
   <!-- Specify the app entry point class.                         -->
   <entry-point class='com.akjava.gwt.jdomaker.client.GWTJDOMaker'/>
