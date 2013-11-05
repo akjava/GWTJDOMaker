@@ -219,6 +219,8 @@ public class GWTJDOMaker implements EntryPoint {
 		
 		dtoOutput.setText(files.get(2).getText());
 		
+		//TODO support PMF package
+		
 	}
 	
 

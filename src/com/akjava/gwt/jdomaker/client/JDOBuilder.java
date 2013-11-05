@@ -90,16 +90,20 @@ public class JDOBuilder {
 		m2eMap.put("List<Boolean>", Bundles.INSTANCE.m2e_list_boolean().getText());
 	}
 	
-	public List<FileNameAndText> createJdoFilesByCsv(Settings settings,String csvText){
-		List<FileNameAndText> files=new ArrayList<FileNameAndText>();
-		
+	public static String generatePackageLine(String packageValue){
 		String packageText="";
-		if(settings.getPackageValue()!=null){
-			packageText="package "+settings.getPackageValue()+";";
+		if(packageValue!=null && !packageValue.isEmpty()){
+			packageText="package "+packageValue+";";
 		}
 		if(!packageText.isEmpty()){
 			packageText+="\n";
 		}
+		return packageText;
+	}
+	public List<FileNameAndText> createJdoFilesByCsv(Settings settings,String csvText){
+		List<FileNameAndText> files=new ArrayList<FileNameAndText>();
+		
+		String packageText=generatePackageLine(settings.getPackageValue());
 		
 		JDOClass jdoc=stringToJdoClass(settings,csvText);
 		//create entity by jet.however it's too old way
