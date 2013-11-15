@@ -47,6 +47,19 @@ public ${class}Dao(PersistenceManager manager){
 		}
 		
 	}
+	public long count(String where){
+		if(where==null || where.isEmpty()){
+			return count();
+		}
+		Query query=manager.newQuery("select count(this) from "+${class}.class.getName()+
+				" where "+where);
+		Long value=(Long) query.execute();
+		if(value!=null){
+			return value;
+		}else{
+			return 0;
+		}
+	}
 	
 	/*
 	 * only if id is not auto
@@ -105,6 +118,25 @@ public  List<${class}> getDatas(long start,long size,String key,boolean isAsce){
 		}
 		query.setOrdering(order);
 	}
+	query.setRange(start, start+size);
+	@SuppressWarnings("unchecked")
+	List<${class}> result=(List<${class}>) query.execute();
+	return result;
+	}
+	
+	public  List<${class}> getDatas(long start,long size,String where,String key,boolean isAsce){
+	if(where==null || where.isEmpty()){
+		return getDatas(start,size,key,isAsce);
+	}
+	Query query =manager.newQuery(${class}.class,where);
+	if(key!=null){
+		String order=key;
+		if(!isAsce){
+		order+=" desc";
+		}
+		query.setOrdering(order);
+	}
+	
 	query.setRange(start, start+size);
 	@SuppressWarnings("unchecked")
 	List<${class}> result=(List<${class}>) query.execute();
