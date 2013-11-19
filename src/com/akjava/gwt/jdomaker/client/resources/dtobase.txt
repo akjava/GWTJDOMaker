@@ -9,8 +9,10 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
 public class ${class}Dto {
-	private static Joiner numberJoiner = Joiner.on("\t");
-	private static Joiner textJoiner = Joiner.on((char) Ascii.NUL);
+	private static final String numberJoinerSplitText="\t";
+	private static final String textJoinerSplitText=""+(char) Ascii.NUL;
+	private static Joiner numberJoiner = Joiner.on(numberJoinerSplitText);
+	private static Joiner textJoiner = Joiner.on(textJoinerSplitText);
 
 	public static Map<String, String> entityToMap(${class} entity) {
 		Map<String, String> map = new HashMap<String, String>();

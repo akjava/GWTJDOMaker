@@ -1,6 +1,6 @@
 		if (map.get("${key}") != null) {
 			List<Integer> values = new ArrayList<Integer>();
-			String[] vs = map.get("${key}").split("\t");
+			String[] vs = map.get("${key}").split(numberJoinerSplitText);
 			for (String v : vs) {
 				Integer number = null;
 				try {

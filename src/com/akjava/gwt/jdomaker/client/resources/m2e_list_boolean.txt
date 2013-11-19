@@ -1,6 +1,6 @@
 		if (map.get("${key}") != null) {
 			List<Boolean> values = new ArrayList<Boolean>();
-			String[] vs = map.get("${key}").split("\t");
+			String[] vs = map.get("${key}").split(numberJoinerSplitText);
 			for (String v : vs) {
 				Boolean number = null;
 				try {

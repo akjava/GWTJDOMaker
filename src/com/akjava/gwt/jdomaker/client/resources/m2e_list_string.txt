@@ -1,4 +1,4 @@
 	if (map.get("${key}") != null) {
-			String[] vs = map.get("${key}").split("" + (char) Ascii.NUL);
+			String[] vs = map.get("${key}").split(textJoinerSplitText);
 			entity.set${u+key}(Lists.newArrayList(vs));
 		}
