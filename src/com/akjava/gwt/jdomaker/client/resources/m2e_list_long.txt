@@ -1,6 +1,6 @@
 		if (map.get("${key}") != null) {
 			List<Long> values = new ArrayList<Long>();
-			String[] vs = map.get("${key}").split(",");
+			String[] vs = map.get("${key}").split("\t");
 			for (String v : vs) {
 				Long number = null;
 				try {
