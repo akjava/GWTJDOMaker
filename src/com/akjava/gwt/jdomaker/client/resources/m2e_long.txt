@@ -3,7 +3,7 @@
 			try{
 				value=Long.parseLong(map.get("${key}"));
 			}catch(Exception e){
-				//e.printStackTrace();
+				e.printStackTrace();
 			}
 			entity.set${u+key}(value);
 		}
