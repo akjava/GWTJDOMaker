@@ -6,7 +6,7 @@
 				try {
 					number = Long.parseLong(v);
 				} catch (Exception e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 				if (number != null) {
 					values.add(number);
