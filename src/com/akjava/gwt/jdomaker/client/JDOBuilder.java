@@ -71,6 +71,8 @@ public class JDOBuilder {
 		e2mMap.put("String", Bundles.INSTANCE.e2m_string().getText());
 		e2mMap.put("Integer", Bundles.INSTANCE.e2m_int().getText());
 		e2mMap.put("Long", Bundles.INSTANCE.e2m_long().getText());
+		e2mMap.put("Double", Bundles.INSTANCE.e2m_double().getText());
+		
 		e2mMap.put("Boolean", Bundles.INSTANCE.e2m_boolean().getText());
 		e2mMap.put("Text", Bundles.INSTANCE.e2m_text().getText());
 		e2mMap.put("List<String>", Bundles.INSTANCE.e2m_list_string().getText());
@@ -82,6 +84,7 @@ public class JDOBuilder {
 		m2eMap.put("String", Bundles.INSTANCE.m2e_string().getText());
 		m2eMap.put("Integer", Bundles.INSTANCE.m2e_int().getText());
 		m2eMap.put("Long", Bundles.INSTANCE.m2e_long().getText());
+		m2eMap.put("Double", Bundles.INSTANCE.m2e_double().getText());
 		m2eMap.put("Boolean", Bundles.INSTANCE.m2e_boolean().getText());
 		m2eMap.put("Text", Bundles.INSTANCE.m2e_text().getText());
 		m2eMap.put("List<String>", Bundles.INSTANCE.m2e_list_string().getText());

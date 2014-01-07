@@ -1,0 +1,9 @@
+	if(map.get("${key}")!=null){
+			Double value=null;
+			try{
+				value=Double.parseDouble(map.get("${key}"));
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			entity.set${u+key}(value);
+		}
